@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="htttp://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Calorie Counter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Calorie Counter</h1>
+
+    <div>
+        <h2>Today's recommendation:</h2>
+        <p th:text="'Food name: ' + ${food.name}"></p> <!--a thymeleaf csak azzal foglalkozik, ahova th: -t rakunk és csak oda kell, ahol változót hívunk meg-->
+        <p th:text="'Calories: ' + ${food.amount}"></p>
+
+    </div>
+
+    <table> <!-- <tr> table sor, <td> table oszlop-->
+        <tr th:each="food: ${foods}">
+            <!--<td th:text="${food.name}" th:attr="class=${food.amount> 400 ? 'red' : ' '}"></td> nem szabad a viewbe logikát írni-->
+            <td th:text="${food.name}" th:attr="class=${food.alertStyleClass}"></td>
+            <td th:text="${food.amount}" th:attr="class=${food.alertStyleClass}"></td>
+            <td>
+                <a th:href="'edit-food/' + ${food.id}">Edit Path Variable</a>  <!--path variable-val-->
+                <!--<a th:href="'edit-food?foodId=' + ${food.id}">Edit Request Param</a> --> <!--request param-al-->
+                <a th:href="@{/edit-food(foodId=${food.id})}">Edit Request Param</a>
+            </td>
+        </tr>
+    </table>
+
+    <p th:text="'Total calories: ' + ${totalAmount}"></p>
+
+    <h2>Add new food</h2>
+     <form action="/save-food" method="post">
+         <label for="name">Name</label>
+         <input type="text" id="name" name="name"/> <!--ez a name=name kell a save-food-hoz, hogy tudja, h hova kell mentenie-->
+
+         <br>
+
+         <label for="amount">Amount</label>
+         <input type="number" id="amount" name="amount"/> <!--ez a name=amount kell a save-food-hoz, hogy tudja, h hova kell mentenie-->
+
+         <br>
+
+         <button type="submit">Save</button>
+     </form>
+</body>
+</html>

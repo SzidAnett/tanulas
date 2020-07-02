@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="htttp://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Hello kedvenc <span th:text="${name}"></span>
+<!--a thymeleaf fogja kiegészíteni a name változóval, amit Model-el adok meg-->
+<!--Hello kedvenc <span zsigacska></span> Ez ugyanaz!-->
+<p th:text="'Hello, ' + ${name} + '!'"></p> <!--Ez így sokkal szebb!-->
+</body>
+</html>
